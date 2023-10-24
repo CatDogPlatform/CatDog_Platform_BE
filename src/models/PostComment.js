@@ -3,15 +3,15 @@ import { mongoose } from 'mongoose';
 const commentSchema = mongoose.Schema( {
 
     detail: String,
-    post:
+    postId:
     {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Post'
+        type: String,
+        require: false
     },
-    user:
+    userId:
     {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User'
+        type: String,
+        require: false
     }
 },
     {

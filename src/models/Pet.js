@@ -10,10 +10,18 @@ const petSchema = mongoose.Schema( {
         type: String,
         enum: [ "Dog", "Cat" ]
     },
-    user:
+    images: {
+        type: Array,
+        default: []
+    },
+    userId:
     {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User'
+        type: String,
+        require: true
+    },
+    status: {
+        type: String,
+        enum: [ "AVAILABLE", "FOR EXCHANGE", "BOUGHT" ]
     }
 },
     {
