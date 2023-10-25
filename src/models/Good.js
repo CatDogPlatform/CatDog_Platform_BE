@@ -5,10 +5,18 @@ const goodSchema = mongoose.Schema( {
     name: String,
     description: String,
     price: Number,
-    user:
+    images: {
+        type: Array,
+        default: []
+    },
+    userId:
     {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User'
+        type: String,
+        require: true
+    },
+    status: {
+        type: String,
+        enum: [ "AVAILABLE", "FOR EXCHANGE", "BOUGHT" ]
     }
 },
     {

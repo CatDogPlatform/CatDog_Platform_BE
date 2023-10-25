@@ -17,8 +17,8 @@ const userSchema = mongoose.Schema(
         },
         role:
         {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'Role'
+            type: String,
+            enum: [ 'MEMBER', 'STAFF', 'ADMIN' ]
         }
     },
     {
