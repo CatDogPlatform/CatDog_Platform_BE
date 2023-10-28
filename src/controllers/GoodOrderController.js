@@ -1,0 +1,82 @@
+import asyncHandler from 'express-async-handler';
+import GoodOrder from "../models/GoodOrder.js";
+
+const payGoodOrder = asyncHandler( async ( req, res ) =>
+{
+    try
+    {
+        const GoodOrder = await GoodOrder.findById( req.params.id )
+        await GoodOrder.updateOne( { $set: req.body } )
+        res.status( 200 ).json( GoodOrder )
+    } catch ( error )
+    {
+        res.status( 400 )
+        throw new Error( "Cannot pay GoodOrder" )
+    }
+} )
+
+const getGoodOrder = asyncHandler( async ( req, res ) =>
+{
+    try
+    {
+        const GoodOrder = await GoodOrder.findById( req.params.id )
+        res.status( 200 ).json( GoodOrder )
+    } catch ( error )
+    {
+        res.status( 400 )
+        throw new Error( "Cannot create GoodOrder" )
+    }
+} )
+
+const updateGoodOrder = asyncHandler( async ( req, res ) =>
+{
+    try
+    {
+        const GoodOrder = await GoodOrder.findById( req.params.id )
+        await GoodOrder.updateOne( { $set: req.body } )
+        res.status( 200 ).json( GoodOrder )
+    } catch ( error )
+    {
+        res.status( 400 )
+        throw new Error( "Cannot create GoodOrder" )
+    }
+} )
+
+const searchGoodOrder = asyncHandler( async ( req, res ) =>
+{
+    try
+    {
+        const search = req.query.search;
+        var condition = search ? { content: { $regex: new RegExp( search ), $options: "i" } } : {};
+
+        const GoodOrders = GoodOrder.find( condition )
+        res.status( 200 ).json( GoodOrders )
+    } catch ( error )
+    {
+        res.status( 400 )
+        throw new Error( "Cannot search GoodOrder" )
+    }
+} )
+
+const deleteGoodOrder = asyncHandler( async ( req, res ) =>
+{
+    try
+    {
+        const GoodOrder = await GoodOrder.findById( req.params.id )
+        await GoodOrder.deleteOne()
+        res.status(200)
+    } catch ( error )
+    {
+        res.status( 400 )
+        throw new Error( "Cannot delete GoodOrder" )
+    }
+} )
+
+
+export {
+    payGoodOrder,
+    getGoodOrder,
+    updateGoodOrder, 
+    searchGoodOrder, 
+    deleteGoodOrder, 
+} 
