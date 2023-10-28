@@ -4,7 +4,8 @@ const goodOrderSchema = mongoose.Schema( {
 
     status: {
         type: String,
-        enum: ["PENDING", "PAYED"]
+        enum: [ "PENDING", "PAYED" ],
+        default: "PENDING"
     },
     goodId:
     {

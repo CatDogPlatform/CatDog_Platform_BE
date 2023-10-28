@@ -16,7 +16,8 @@ const goodSchema = mongoose.Schema( {
     },
     status: {
         type: String,
-        enum: [ "AVAILABLE", "FOR EXCHANGE", "BOUGHT" ]
+        enum: [ "AVAILABLE", "FOR EXCHANGE", "BOUGHT" ],
+        default: "AVAILABLE"
     }
 },
     {
