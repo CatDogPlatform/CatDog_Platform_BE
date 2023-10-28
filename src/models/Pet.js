@@ -5,6 +5,12 @@ const petSchema = mongoose.Schema( {
     name: String,
     description: String,
     price: Number,
+    weight: Number,
+    DoB: Date,
+    Gender: {
+        type: String,
+        enum: [ "MALE", "FEMALE" ]
+    },
     petType:
     {
         type: String,
@@ -21,7 +27,8 @@ const petSchema = mongoose.Schema( {
     },
     status: {
         type: String,
-        enum: [ "AVAILABLE", "FOR EXCHANGE", "BOUGHT" ]
+        enum: [ "AVAILABLE", "FOR EXCHANGE", "BOUGHT" ],
+        default: "AVAILABLE"
     }
 },
     {

@@ -1,14 +1,14 @@
 import asyncHandler from 'express-async-handler';
 import PetOrder from "../models/PetOrder.js";
-
+import Pet from '../models/Pet.js';
 
 const payPetOrder = asyncHandler( async ( req, res ) =>
 {
     try
     {
-        const Pet = await Pet.findById( req.params.id )
-        await Pet.updateOne( { $set: req.body } )
-        res.status( 200 ).json( Pet )
+        const pet = await Pet.findById( req.params.id )
+        await pet.updateOne( { $set: req.body } )
+        res.status( 200 ).json( pet )
     } catch ( error )
     {
         res.status( 400 )
@@ -21,8 +21,8 @@ const getPetOrder = asyncHandler( async ( req, res ) =>
 {
     try
     {
-        const PetOrder = await PetOrder.findById( req.params.id )
-        res.status( 200 ).json( PetOrder )
+        const petOrder = await PetOrder.findById( req.params.id )
+        res.status( 200 ).json( petOrder )
     } catch ( error )
     {
         res.status( 400 )
@@ -34,9 +34,9 @@ const updatePetOrder = asyncHandler( async ( req, res ) =>
 {
     try
     {
-        const PetOrder = await PetOrder.findById( req.params.id )
-        await PetOrder.updateOne( { $set: req.body } )
-        res.status( 200 ).json( PetOrder )
+        const petOrder = await PetOrder.findById( req.params.id )
+        await petOrder.updateOne( { $set: req.body } )
+        res.status( 200 ).json( petOrder )
     } catch ( error )
     {
         res.status( 400 )
@@ -51,8 +51,8 @@ const searchPetOrder = asyncHandler( async ( req, res ) =>
         const search = req.query.search;
         var condition = search ? { content: { $regex: new RegExp( search ), $options: "i" } } : {};
 
-        const PetOrders = PetOrder.find( condition )
-        res.status( 200 ).json( PetOrders )
+        const petOrder = PetOrder.find( condition )
+        res.status( 200 ).json( petOrder )
     } catch ( error )
     {
         res.status( 400 )
@@ -64,9 +64,9 @@ const deletePetOrder = asyncHandler( async ( req, res ) =>
 {
     try
     {
-        const PetOrder = await PetOrder.findById( req.params.id )
-        await PetOrder.deleteOne()
-        res.status(200)
+        const petOrder = await PetOrder.findById( req.params.id )
+        await petOrder.deleteOne()
+        res.status( 200 )
     } catch ( error )
     {
         res.status( 400 )
@@ -75,14 +75,11 @@ const deletePetOrder = asyncHandler( async ( req, res ) =>
 } )
 
 
-
-
-
-
-export {
+export
+{
     payPetOrder,
     getPetOrder,
-    updatePetOrder, 
-    searchPetOrder, 
-    deletePetOrder, 
+    updatePetOrder,
+    searchPetOrder,
+    deletePetOrder,
 } 

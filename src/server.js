@@ -4,7 +4,7 @@ import dotenv from "dotenv"
 import cookieParser from "cookie-parser";
 import { notFound, errorHandler } from "./middleware/errorHandler.js";
 import connectDB from "./config/db.js";
-import {run} from "./db_test.js"
+import { run } from "./db_test.js"
 import postRoutes from "./routes/PostRoutes.js"
 import petRoutes from "./routes/PetRoutes.js"
 import goodRoutes from "./routes/GoodRoutes.js"
@@ -14,7 +14,7 @@ dotenv.config()
 const PORT = process.env.PORT || 5000;
 
 connectDB()
-run()
+// run()
 
 const app = express();
 

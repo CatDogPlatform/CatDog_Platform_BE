@@ -29,8 +29,8 @@ const sellGood = asyncHandler( async ( req, res ) =>
     try
     {
         // Change good status from "available" to "for exchange"
-        const Good = await Good.findById( req.params.id )
-        res.status( 200 ).json( Good )
+        const good = await Good.findById( req.params.id )
+        res.status( 200 ).json( good )
     } catch ( error )
     {
         res.status( 400 )
@@ -42,9 +42,9 @@ const updateGood = asyncHandler( async ( req, res ) =>
 {
     try
     {
-        const Good = await Good.findById( req.params.id )
-        await Good.updateOne( { $set: req.body } )
-        res.status( 200 ).json( Good )
+        const good = await Good.findById( req.params.id )
+        await good.updateOne( { $set: req.body } )
+        res.status( 200 ).json( good )
     } catch ( error )
     {
         res.status( 400 )
@@ -56,8 +56,8 @@ const getGood = asyncHandler( async ( req, res ) =>
 {
     try
     {
-        const Good = await Good.findById( req.params.id )
-        res.status( 200 ).json( Good )
+        const good = await Good.findById( req.params.id )
+        res.status( 200 ).json( good )
     } catch ( error )
     {
         res.status( 400 )
@@ -72,8 +72,8 @@ const searchGood = asyncHandler( async ( req, res ) =>
         const search = req.query.search;
         var condition = search ? { content: { $regex: new RegExp( search ), $options: "i" } } : {};
 
-        const Goods = Good.find( condition )
-        res.status( 200 ).json( Goods )
+        const goods = Good.find( condition )
+        res.status( 200 ).json( goods )
     } catch ( error )
     {
         res.status( 400 )
@@ -85,9 +85,9 @@ const deleteGood = asyncHandler( async ( req, res ) =>
 {
     try
     {
-        const Good = await Good.findById( req.params.id )
-        await Good.deleteOne()
-        res.status(200)
+        const good = await Good.findById( req.params.id )
+        await good.deleteOne()
+        res.status( 200 )
     } catch ( error )
     {
         res.status( 400 )
@@ -99,9 +99,9 @@ const buyGood = asyncHandler( async ( req, res ) =>
 {
     try
     {
-        const Good = await Good.findById( req.params.id )
-        await Good.updateOne( { $set: req.body } )
-        res.status( 200 ).json( Good )
+        const good = await Good.findById( req.params.id )
+        await good.updateOne( { $set: req.body } )
+        res.status( 200 ).json( good )
     } catch ( error )
     {
         res.status( 400 )
@@ -111,12 +111,13 @@ const buyGood = asyncHandler( async ( req, res ) =>
 
 
 
-export {
-    createGood, 
+export
+{
+    createGood,
     sellGood,
-    updateGood, 
+    updateGood,
     getGood,
-    searchGood, 
-    deleteGood, 
+    searchGood,
+    deleteGood,
     buyGood
 } 

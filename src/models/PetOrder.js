@@ -4,7 +4,8 @@ const petOrderSchema = mongoose.Schema( {
 
     status: {
         type: String,
-        enum: ["PENDING", "PAYED"]
+        enum: [ "PENDING", "PAYED" ],
+        default: "PENDING"
     },
     petId:
     {
