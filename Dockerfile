@@ -1,5 +1,5 @@
 FROM node:18
-WORKDIR /backend
+WORKDIR /
 COPY package*.json ./ 
 COPY .env ./ 
 COPY . .
