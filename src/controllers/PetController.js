@@ -71,9 +71,7 @@ const searchPet = asyncHandler( async ( req, res ) =>
     try
     {
         const search = req.query.search;
-        var condition = search ? { content: { $regex: new RegExp( search ), $options: "i" } } : {};
-
-        const pets = Pet.find( condition )
+        const pets = await Pet.find( { name: { $regex: '.*' + search + '.*' } } )
         res.status( 200 ).json( pets )
     } catch ( error )
     {

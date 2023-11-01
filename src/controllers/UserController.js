@@ -29,33 +29,36 @@ const login = asyncHandler(  ( req, res ) => new Promise(async (resolve, reject 
                 err: 1, 
                 message: "Invalid email or password"
             });
+            
+        // check email and password
+       
 
-        //check email and password
-        const users = await User.findOne({
-            where: { email: email},
-            raw: true
-        })
-        const checkPassword = users && bcrypt.compareSync(password, users.password);
-        const token = checkPassword ? jwt.sign({id: users.id, email: users.email, password: users.password }) : null;
-        console.log(token);
+        const users = await User.findOne({ email });
 
-        const response = req.body;
+        const checkPassword = users && bcrypt.compareSync(password,users.password);
+        const token = checkPassword ? jwt.sign({email: users.email, password: users.password },process.env.JWT_SECRET,{expiresIn: '5d'}) : "Khong nhận đc token";
 
-        res.status(200).send({message: "login successful", token: token, data: response});
-
-        resolve({
-            // err: token ? 1 : 0, 
-            // mes: token ? "Login successfully" : users ? "Invalid password" : "Email does not match",
-            // 'access_token': token ? `Bearer ${token}` : token,
-            // data: users
-            message: "Access token",
+        res.status(200).send({
+            err: token ? 1 :0,
+            message: token ? "Login successfully" : users ? "Invalid password" : "Email does not match",
+                             'access_token': token ? `Bearer ${token}` : token,
+            //token: token, 
             data: users
         });
 
-        resolve({
-            err: 0,
-            mes: "register services"
-        })  
+        // resolve({
+        //     err: token ? 1 : 0, 
+        //     mes: token ? "Login successfully" : users ? "Invalid password" : "Email does not match",
+        //     'access_token': token ? `Bearer ${token}` : token,
+        //     data: users
+        //     // message: "Access token",
+        //     // data: users
+        // });
+
+        // resolve({
+        //     err: 0,
+        //     mes: "register services"
+        // })  
 
     } catch ( error )
     {

@@ -72,7 +72,7 @@ const searchGood = asyncHandler( async ( req, res ) =>
         const search = req.query.search;
         var condition = search ? { content: { $regex: new RegExp( search ), $options: "i" } } : {};
 
-        const goods = Good.find( condition )
+        const goods = await Good.find( { name: { $regex: '.*' + search + '.*' } } )
         res.status( 200 ).json( goods )
     } catch ( error )
     {
@@ -100,7 +100,7 @@ const buyGood = asyncHandler( async ( req, res ) =>
     try
     {
         const good = await Good.findById( req.params.id )
-        await good.updateOne( { $set: req.body } )
+        await good.update( { status: "BOUGHT" } )
         res.status( 200 ).json( good )
     } catch ( error )
     {

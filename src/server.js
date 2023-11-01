@@ -29,8 +29,9 @@ app.use( "/api/pets", petRoutes )
 app.use( "/api/goods", goodRoutes )
 app.use( "/api/user", userRoutes )
 
-app.get( '/', () =>
+app.get( '/', ( req, res ) =>
 {
+    res.status( 200 ).json( "Server is ready" )
     console.log( "Server is ready" )
 } )
 
