@@ -5,9 +5,9 @@ const payGoodOrder = asyncHandler( async ( req, res ) =>
 {
     try
     {
-        const GoodOrder = await GoodOrder.findById( req.params.id )
-        await GoodOrder.updateOne( { $set: req.body } )
-        res.status( 200 ).json( GoodOrder )
+        const goodOrder = await GoodOrder.findById( req.params.id )
+        await goodOrder.updateOne( { $set: req.body } )
+        res.status( 200 ).json( goodOrder )
     } catch ( error )
     {
         res.status( 400 )
@@ -19,8 +19,8 @@ const getGoodOrder = asyncHandler( async ( req, res ) =>
 {
     try
     {
-        const GoodOrder = await GoodOrder.findById( req.params.id )
-        res.status( 200 ).json( GoodOrder )
+        const goodOrder = await GoodOrder.findById( req.params.id )
+        res.status( 200 ).json( goodOrder )
     } catch ( error )
     {
         res.status( 400 )
@@ -32,9 +32,9 @@ const updateGoodOrder = asyncHandler( async ( req, res ) =>
 {
     try
     {
-        const GoodOrder = await GoodOrder.findById( req.params.id )
-        await GoodOrder.updateOne( { $set: req.body } )
-        res.status( 200 ).json( GoodOrder )
+        const goodOrder = await GoodOrder.findById( req.params.id )
+        await goodOrder.updateOne( { $set: req.body } )
+        res.status( 200 ).json( goodOrder )
     } catch ( error )
     {
         res.status( 400 )
@@ -49,8 +49,8 @@ const searchGoodOrder = asyncHandler( async ( req, res ) =>
         const search = req.query.search;
         var condition = search ? { content: { $regex: new RegExp( search ), $options: "i" } } : {};
 
-        const GoodOrders = GoodOrder.find( condition )
-        res.status( 200 ).json( GoodOrders )
+        const goodOrder = GoodOrder.find( condition )
+        res.status( 200 ).json( goodOrder )
     } catch ( error )
     {
         res.status( 400 )
@@ -62,9 +62,9 @@ const deleteGoodOrder = asyncHandler( async ( req, res ) =>
 {
     try
     {
-        const GoodOrder = await GoodOrder.findById( req.params.id )
-        await GoodOrder.deleteOne()
-        res.status(200)
+        const goodOrder = await GoodOrder.findById( req.params.id )
+        await goodOrder.deleteOne()
+        res.status( 200 )
     } catch ( error )
     {
         res.status( 400 )
@@ -73,10 +73,11 @@ const deleteGoodOrder = asyncHandler( async ( req, res ) =>
 } )
 
 
-export {
+export
+{
     payGoodOrder,
     getGoodOrder,
-    updateGoodOrder, 
-    searchGoodOrder, 
-    deleteGoodOrder, 
+    updateGoodOrder,
+    searchGoodOrder,
+    deleteGoodOrder,
 } 

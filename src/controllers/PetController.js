@@ -29,8 +29,9 @@ const sellPet = asyncHandler( async ( req, res ) =>
     try
     {
         // Change pet status from "available" to "for exchange"
-        const Pet = await Pet.findById( req.params.id )
-        res.status( 200 ).json( Pet )
+        const pet = await Pet.findById( req.params.id )
+        await pet.update( { status: "FOR EXCHANGE" } )
+        res.status( 200 ).json( pet )
     } catch ( error )
     {
         res.status( 400 )
@@ -42,8 +43,8 @@ const getPet = asyncHandler( async ( req, res ) =>
 {
     try
     {
-        const Pet = await Pet.findById( req.params.id )
-        res.status( 200 ).json( Pet )
+        const pet = await Pet.findById( req.params.id )
+        res.status( 200 ).json( pet )
     } catch ( error )
     {
         res.status( 400 )
@@ -55,9 +56,9 @@ const updatePet = asyncHandler( async ( req, res ) =>
 {
     try
     {
-        const Pet = await Pet.findById( req.params.id )
-        await Pet.updateOne( { $set: req.body } )
-        res.status( 200 ).json( Pet )
+        const pet = await Pet.findById( req.params.id )
+        await pet.updateOne( { $set: req.body } )
+        res.status( 200 ).json( pet )
     } catch ( error )
     {
         res.status( 400 )
@@ -72,8 +73,8 @@ const searchPet = asyncHandler( async ( req, res ) =>
         const search = req.query.search;
         var condition = search ? { content: { $regex: new RegExp( search ), $options: "i" } } : {};
 
-        const Pets = Pet.find( condition )
-        res.status( 200 ).json( Pets )
+        const pets = Pet.find( condition )
+        res.status( 200 ).json( pets )
     } catch ( error )
     {
         res.status( 400 )
@@ -85,9 +86,9 @@ const deletePet = asyncHandler( async ( req, res ) =>
 {
     try
     {
-        const Pet = await Pet.findById( req.params.id )
-        await Pet.deleteOne()
-        res.status(200)
+        const pet = await Pet.findById( req.params.id )
+        await pet.deleteOne()
+        res.status( 200 )
     } catch ( error )
     {
         res.status( 400 )
@@ -99,9 +100,9 @@ const buyPet = asyncHandler( async ( req, res ) =>
 {
     try
     {
-        const Pet = await Pet.findById( req.params.id )
-        await Pet.updateOne( { $set: req.body } )
-        res.status( 200 ).json( Pet )
+        const pet = await Pet.findById( req.params.id )
+        await pet.update( { status: "BOUGHT" } )
+        res.status( 200 ).json( pet )
     } catch ( error )
     {
         res.status( 400 )
@@ -110,13 +111,13 @@ const buyPet = asyncHandler( async ( req, res ) =>
 } )
 
 
-
-export {
+export
+{
     createPet,
-    sellPet, 
+    sellPet,
     getPet,
-    updatePet, 
-    searchPet, 
-    deletePet, 
+    updatePet,
+    searchPet,
+    deletePet,
     buyPet,
 } 
