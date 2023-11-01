@@ -6,9 +6,7 @@ const payPetOrder = asyncHandler( async ( req, res ) =>
 {
     try
     {
-        const pet = await Pet.findById( req.params.id )
-        await pet.updateOne( { $set: req.body } )
-        res.status( 200 ).json( pet )
+
     } catch ( error )
     {
         res.status( 400 )
@@ -65,6 +63,5 @@ export
     payPetOrder,
     getPetOrder,
     updatePetOrder,
-    searchPetOrder,
     deletePetOrder,
 } 
