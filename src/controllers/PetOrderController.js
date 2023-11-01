@@ -44,21 +44,6 @@ const updatePetOrder = asyncHandler( async ( req, res ) =>
     }
 } )
 
-const searchPetOrder = asyncHandler( async ( req, res ) =>
-{
-    try
-    {
-        const search = req.query.search;
-        var condition = search ? { content: { $regex: new RegExp( search ), $options: "i" } } : {};
-
-        const petOrder = PetOrder.find( condition )
-        res.status( 200 ).json( petOrder )
-    } catch ( error )
-    {
-        res.status( 400 )
-        throw new Error( "Cannot search PetOrder" )
-    }
-} )
 
 const deletePetOrder = asyncHandler( async ( req, res ) =>
 {

@@ -42,21 +42,6 @@ const updateGoodOrder = asyncHandler( async ( req, res ) =>
     }
 } )
 
-const searchGoodOrder = asyncHandler( async ( req, res ) =>
-{
-    try
-    {
-        const search = req.query.search;
-        var condition = search ? { content: { $regex: new RegExp( search ), $options: "i" } } : {};
-
-        const goodOrder = GoodOrder.find( condition )
-        res.status( 200 ).json( goodOrder )
-    } catch ( error )
-    {
-        res.status( 400 )
-        throw new Error( "Cannot search GoodOrder" )
-    }
-} )
 
 const deleteGoodOrder = asyncHandler( async ( req, res ) =>
 {
@@ -78,6 +63,5 @@ export
     payGoodOrder,
     getGoodOrder,
     updateGoodOrder,
-    searchGoodOrder,
     deleteGoodOrder,
 } 
