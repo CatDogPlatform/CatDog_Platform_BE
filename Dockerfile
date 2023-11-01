@@ -4,5 +4,5 @@ COPY package*.json ./
 COPY .env ./ 
 COPY . .
 RUN npm install 
-CMD ["node", "server.js"]
+CMD ["node", "src/server.js"]
 EXPOSE 5000
