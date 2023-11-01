@@ -11,7 +11,7 @@ import
 
 const router = express.Router()
 
-router.get( "/search=?", searchPost )
+router.get( "/", searchPost )
 router.post( "/", createPost )
 router.put( "/:id", updatePost )
 router.delete( "/:id", deletePost )

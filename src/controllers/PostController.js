@@ -10,12 +10,6 @@ const createPost = asyncHandler( async ( req, res ) =>
         const { userId, content } = req.body
         const newPost = new Post( { content } )
         const savedPost = await newPost.save()
-        // Add user to post 
-        Post.findByIdAndUpdate(
-            savedPost._id,
-            { user: userId },
-            { new: true, useFindAndModify: false }
-        );
         res.status( 200 ).json( savedPost )
     } catch ( error )
     {
@@ -43,12 +37,7 @@ const searchPost = asyncHandler( async ( req, res ) =>
     try
     {
         const search = req.query.search;
-        var condition = search ? {
-            content: { $regex: new RegExp( search ), $options: "i" },
-            status: "APPROVED"
-        } : {};
-
-        const posts = Post.find( condition )
+        const posts = await Post.find( { content: { $regex: '.*' + search + '.*' }, status: "APPROVED" } )
         res.status( 200 ).json( posts )
     } catch ( error )
     {
@@ -76,7 +65,16 @@ const likePost = asyncHandler( async ( req, res ) =>
 {
     try
     {
-        await Post.updateOne( { $push: { likes: req.body.userId } } )
+        const post = await Post.findById( req.params.id )
+        if ( !post.likes.includes( req.body.userId ) )
+        {
+            await post.updateOne( { $push: { likes: req.body.userId } } )
+            res.status( 200 ).json( "The post has been liked" )
+        } else
+        {
+            await post.updateOne( { $pull: { likes: req.body.userId } } )
+            res.status( 200 ).json( "The post has been disliked" )
+        }
     } catch ( error )
     {
         res.status( 400 )
@@ -84,18 +82,6 @@ const likePost = asyncHandler( async ( req, res ) =>
     }
 } )
 
-
-const unlikePost = asyncHandler( async ( req, res ) =>
-{
-    try
-    {
-
-    } catch ( error )
-    {
-        res.status( 400 )
-        throw new Error( "Cannot like post" )
-    }
-} )
 
 const commentPost = asyncHandler( async ( req, res ) =>
 {
@@ -164,7 +150,6 @@ export
     searchPost,
     deletePost,
     likePost,
-    unlikePost,
     commentPost,
     getPostComments,
     approvePost,
