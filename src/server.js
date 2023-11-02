@@ -1,7 +1,7 @@
 import express from "express";
 import cors from "cors"
 import admin from "firebase-admin"
-import serviceAccountKey from "./petdom-563bd-firebase-adminsdk-9kse4-b09a58d9bb.json"
+// import serviceAccountKey from "petdom-563bd-firebase-adminsdk-9kse4-b09a58d9bb.json"
 import dotenv from "dotenv"
 import cookieParser from "cookie-parser";
 import { notFound, errorHandler } from "./middleware/errorHandler.js";
@@ -19,8 +19,8 @@ connectDB()
 
 //initialize the app
 admin.initializeApp( {
-    credential: admin.credential.cert( serviceAccountKey ),
-    storageBucket: 'your_bucket_name.appspot.com' //you can find in storage.
+    credential: admin.credential.cert( "petdom-563bd-firebase-adminsdk-9kse4-b09a58d9bb.json" ),
+    storageBucket: 'gs://petdom-563bd.appspot.com' //you can find in storage.
 } );
 
 //get your bucket
