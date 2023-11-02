@@ -15,6 +15,15 @@ const createPost = function ( post )
     } );
 };
 
+const createUser = function ( user )
+{
+    return User.create( user ).then( docUser =>
+    {
+        console.log( "\n>> Created User:\n", docUser );
+        return docUser;
+    } );
+};
+
 
 const createComment = function ( comment )
 {
@@ -81,6 +90,15 @@ const addGoodToUser = function ( userId, goodId )
     );
 };
 
+const addPostToUser = function ( postId, userId )
+{
+    return Post.findByIdAndUpdate(
+        postId,
+        { user: userId },
+        { new: true, useFindAndModify: false }
+    );
+};
+
 export const run = async function ()
 {
     // var petOrder = await createPetOrder( {
@@ -96,25 +114,42 @@ export const run = async function ()
     // } );
 
     var post = await createPost( {
-        content: "Cat",
-        userId: '6531f46033d7818c3ae2941e',
+        content: "I like cats. They are cute",
+        images: [ "https://thumbor.forbes.com/thumbor/fit-in/900x510/https://www.forbes.com/advisor/wp-content/uploads/2023/07/top-20-small-dog-breeds.jpeg.jpg" ],
         status: "APPROVED"
 
     } )
 
     var post2 = await createPost( {
-        content: "Dog 2",
-        userId: '6531f46033d7818c3ae2941e',
+        content: "I like dogs. They are my friends",
+        images: [ "https://thumbor.forbes.com/thumbor/fit-in/900x510/https://www.forbes.com/advisor/wp-content/uploads/2023/07/top-20-small-dog-breeds.jpeg.jpg" ],
         status: "APPROVED"
 
     } )
 
-    var post2 = await createPost( {
-        content: "Cat 2",
-        userId: '6531f46033d7818c3ae2941e',
+    var post3 = await createPost( {
+        content: "I like both pets. They are all cute",
+        images: [ "https://thumbor.forbes.com/thumbor/fit-in/900x510/https://www.forbes.com/advisor/wp-content/uploads/2023/07/top-20-small-dog-breeds.jpeg.jpg" ],
         status: "PENDING"
 
     } )
 
+    var user = await createUser( {
+        email: "daive321@gmail.com",
+        password: "123",
+        fullname: "Dave",
+        role: "MEMBER"
+    } )
+
+    var user2 = await createUser( {
+        email: "jane123@gmail.com",
+        password: "123",
+        fullname: "Jane",
+        role: "MEMBER"
+    } )
+
+    post = await addPostToUser( post._id, user._id )
+    post2 = await addPostToUser( post2._id, user._id )
+    post3 = await addPostToUser( post3._id, user2._id )
 };
 

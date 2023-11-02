@@ -1,6 +1,7 @@
 import asyncHandler from 'express-async-handler';
 import Post from "../models/Post.js";
 import Comment from '../models/PostComment.js';
+import User from '../models/User.js';
 // FOR MEMBERS
 const createPost = asyncHandler( async ( req, res ) =>
 {
@@ -37,7 +38,10 @@ const searchPost = asyncHandler( async ( req, res ) =>
     try
     {
         const search = req.query.search;
-        const posts = await Post.find( { content: { $regex: '.*' + search + '.*' }, status: "APPROVED" } )
+        const posts = await Post.find( {
+            content: { $regex: '.*' + search + '.*' },
+            status: "APPROVED"
+        } ).populate( 'user' );
         res.status( 200 ).json( posts )
     } catch ( error )
     {
