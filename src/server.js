@@ -52,3 +52,15 @@ app.listen( PORT, () =>
 {
     console.log( `Server started on port ${ PORT }` )
 } )
+
+
+
+app.get( '/his', ( req, res ) =>
+{
+    res.json( "Welcome to MongoDB" )
+} )
+
+app.get( '/hi', ( req, res ) =>
+{
+    res.send( "Hello from express server." )
+} )
