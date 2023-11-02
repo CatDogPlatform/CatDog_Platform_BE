@@ -1,5 +1,7 @@
 import express from "express";
 import cors from "cors"
+import admin from "firebase-admin"
+import serviceAccountKey from "./petdom-563bd-firebase-adminsdk-9kse4-b09a58d9bb.json"
 import dotenv from "dotenv"
 import cookieParser from "cookie-parser";
 import { notFound, errorHandler } from "./middleware/errorHandler.js";
@@ -14,11 +16,19 @@ dotenv.config()
 const PORT = process.env.PORT || 5000;
 
 connectDB()
-// run()
+
+//initialize the app
+admin.initializeApp( {
+    credential: admin.credential.cert( serviceAccountKey ),
+    storageBucket: 'your_bucket_name.appspot.com' //you can find in storage.
+} );
+
+//get your bucket
+var bucket = admin.storage().bucket();
 
 const app = express();
 
-
+app.use( cors() );
 app.use( express.json() )
 app.use( express.urlencoded( { extended: true } ) )
 

@@ -14,7 +14,7 @@ import
 
 const router = express.Router()
 
-router.get( "/search=?", searchGood )
+router.get( "/", searchGood )
 router.post( "/add", createGood )
 router.get( "/:id", getGood )
 router.put( "/:id", updateGood )

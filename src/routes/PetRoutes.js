@@ -13,7 +13,7 @@ import
 
 const router = express.Router()
 
-router.get( "/search=?", searchPet )
+router.get( "/", searchPet )
 router.post( "/add", createPet )
 router.get( "/:id", getPet )
 router.put( "/:id", updatePet )
