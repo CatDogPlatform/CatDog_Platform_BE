@@ -11,6 +11,7 @@ const createPost = asyncHandler( async ( req, res ) =>
         const { userId, content } = req.body
         const newPost = new Post( { content } )
         const savedPost = await newPost.save()
+
         res.status( 200 ).json( savedPost )
     } catch ( error )
     {

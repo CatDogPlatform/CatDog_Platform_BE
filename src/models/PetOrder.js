@@ -16,6 +16,10 @@ const petOrderSchema = mongoose.Schema( {
     {
         type: String,
         require: false
+    },
+    seller:
+    {
+        type: mongoose.Schema.Types.ObjectId, ref: 'User'
     }
 },
     {
