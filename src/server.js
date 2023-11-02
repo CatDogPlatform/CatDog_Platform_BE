@@ -16,7 +16,7 @@ dotenv.config()
 const PORT = process.env.PORT || 5000;
 
 connectDB()
-
+// run()
 //initialize the app
 admin.initializeApp( {
     credential: admin.credential.cert( "petdom-563bd-firebase-adminsdk-9kse4-b09a58d9bb.json" ),
