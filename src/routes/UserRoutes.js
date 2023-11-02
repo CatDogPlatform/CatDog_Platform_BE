@@ -11,7 +11,7 @@ const router = express.Router()
 
 router.post( "/register", register )
 router.post( "/login", login )
-router.get( "/profile", getProfile )
+router.get( "/profile/:id", getProfile )
 
 
 export default router

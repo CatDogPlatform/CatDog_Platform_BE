@@ -1,0 +1,13 @@
+200 OK – Tra về trong các phương thức GET, PUT, PATCH, DELETE.
+201 Created – Trả về khi tạo xong tài nguyên
+204 No Content – Trả về khi xoá xong 1 tài nguyên
+304 Not Modified – Tài nguyên không có thay đổi, client có thể dùng cache.
+400 Bad Request – Request không hợp lệ
+401 Unauthorized – Request không quyền truy cập.
+403 Forbidden – Request bị bẻ gãy, từ chối truy cập.
+404 Not Found – Không tìm thấy tài nguyên trong từ URI
+405 Method Not Allowed – Phương thức không được phép
+410 Gone – Tài nguyên không tồn tại
+415 Unsupported Media Type – Không hỗ trợ kiểu tài nguyên
+422 Unprocessable Entity – Dữ liệu không được xử lý
+429 Too Many Requests – Có quá nhiều request
