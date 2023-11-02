@@ -6,7 +6,11 @@ const payPetOrder = asyncHandler( async ( req, res ) =>
 {
     try
     {
+        // choose pet or payment
 
+        // remove pet from seller
+
+        // add pet to buyer
     } catch ( error )
     {
         res.status( 400 )

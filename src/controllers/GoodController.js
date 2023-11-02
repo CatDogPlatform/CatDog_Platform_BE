@@ -72,7 +72,7 @@ const searchGood = asyncHandler( async ( req, res ) =>
         const search = req.query.search;
         var condition = search ? { content: { $regex: new RegExp( search ), $options: "i" } } : {};
 
-        const goods = await Good.find( { name: { $regex: '.*' + search + '.*' } } )
+        const goods = await Good.find( { name: { $regex: '.*' + search + '.*' } } ).populate( 'user' )
         res.status( 200 ).json( goods )
     } catch ( error )
     {
