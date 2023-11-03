@@ -76,7 +76,7 @@ const addPetToUser = function ( userId, petId )
 {
     return Pet.findByIdAndUpdate(
         petId,
-        { userId: '6531f46033d7818c3ae2941e' },
+        { userId: userId },
         { new: true, useFindAndModify: false }
     );
 };
@@ -85,7 +85,7 @@ const addGoodToUser = function ( userId, goodId )
 {
     return Good.findByIdAndUpdate(
         goodId,
-        { userId: '6531f46033d7818c3ae2941e' },
+        { userId: userId },
         { new: true, useFindAndModify: false }
     );
 };
@@ -101,17 +101,19 @@ const addPostToUser = function ( postId, userId )
 
 export const run = async function ()
 {
-    // var petOrder = await createPetOrder( {
-    //     status: "PENDING",
-    //     petId: '65382481986612f269956a04',
-    //     userId: '6531f46033d7818c3ae2941e'
-    // } );
+    var pet1 = await createPetOrder( {
 
-    // var goodOrder = await createGoodOrder( {
-    //     status: "PENDING",
-    //     goodId: '65382487986612f269956a08',
-    //     userId: '6531f46033d7818c3ae2941e'
-    // } );
+    } );
+
+    var pet2 = await createPetOrder( {
+
+    } );
+
+    var good1= await createGoodOrder( {
+
+    } );
+
+
 
     // var post = await createPost( {
     //     content: "I like cats. They are cute",

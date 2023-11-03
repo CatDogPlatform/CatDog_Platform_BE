@@ -8,9 +8,11 @@ const createPost = asyncHandler( async ( req, res ) =>
     try
     {
         // Split user and post data from request body
-        const { userId, content } = req.body
+        const { userId, content, imageUrl } = req.body
+
         const newPost = new Post( { content } )
         const savedPost = await newPost.save()
+        await savedPost.updateOne( { $push: { images: imageUrl } } )
 
         res.status( 200 ).json( savedPost )
     } catch ( error )

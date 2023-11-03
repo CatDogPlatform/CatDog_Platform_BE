@@ -2,15 +2,28 @@ import asyncHandler from 'express-async-handler';
 import PetOrder from "../models/PetOrder.js";
 import Pet from '../models/Pet.js';
 
+
 const payPetOrder = asyncHandler( async ( req, res ) =>
 {
     try
     {
-        // choose pet or payment
-
+        const sellerPet = await Pet.findById( req.params.id ).populate( 'user' )
+        // choose pet 
+        const { buyerPetId, buyerId } = req.body
         // remove pet from seller
+        await sellerPet.findByIdAndUpdate(
+            sellerPet._id,
+            { user: buyerId },
+            { new: true, useFindAndModify: false }
+        );
 
-        // add pet to buyer
+        const buyerPet = await Pet.findById( buyerPetId ).populate( 'user' )
+        await buyerPet.findByIdAndUpdate(
+            buyerPet._id,
+            { user: sellerPet.user._id },
+            { new: true, useFindAndModify: false }
+        );
+        res.status( 200 ).json( "Buy successfully" )
     } catch ( error )
     {
         res.status( 400 )
