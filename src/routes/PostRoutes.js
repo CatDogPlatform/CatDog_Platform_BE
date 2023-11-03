@@ -12,10 +12,10 @@ import
 const router = express.Router()
 
 router.get( "/", searchPost )
-router.post( "/", createPost )
+router.post( "/", upload.single( 'image' ), createPost )
 router.put( "/:id", updatePost )
 router.delete( "/:id", deletePost )
-router.delete( "/:id/like", likePost )
+// router.delete( "/:id/like", likePost )
 
 
 export default router

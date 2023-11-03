@@ -11,6 +11,7 @@ import postRoutes from "./routes/PostRoutes.js"
 import petRoutes from "./routes/PetRoutes.js"
 import goodRoutes from "./routes/GoodRoutes.js"
 import userRoutes from "./routes/UserRoutes.js"
+import multer from "multer";
 
 dotenv.config()
 const PORT = process.env.PORT || 5000;
@@ -22,6 +23,18 @@ admin.initializeApp( {
     credential: admin.credential.cert( "petdom-563bd-firebase-adminsdk-9kse4-b09a58d9bb.json" ),
     storageBucket: 'gs://petdom-563bd.appspot.com' //you can find in storage.
 } );
+
+const storage = multer.diskStorage( {
+    destination: ( req, file, cb ) =>
+    {
+        cb( null, 'images/' ); // Create a directory named 'uploads' to store the uploaded images
+    },
+    filename: ( req, file, cb ) =>
+    {
+        cb( null, file.originalname );
+    },
+} );
+const upload = multer( { storage: storage } );
 
 //get your bucket
 var bucket = admin.storage().bucket();
