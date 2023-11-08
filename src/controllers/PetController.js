@@ -7,6 +7,24 @@ const createPet = asyncHandler( async ( req, res ) =>
     try
     {
         // Split user and Pet data from request body
+        // if(!req.file) {
+        //     return res.status(400).send("Error: No files found")
+        // } 
+
+        // const blob = firebase.bucket.file(req.file.originalname)
+
+        // const blobWriter = blob.createWriteStream({
+        //     metadata: {
+        //         contentType: req.file.mimetype
+        //     }
+        // })
+
+        // blobWriter.on('error', (err) => {
+        //     console.log(err)
+        // })
+
+        // blobWriter.end(req.file.buffer)
+
         const { userId, name, description, price, petType } = req.body
         const newPet = new Pet( { name, description, price, petType } )
         const savedPet = await newPet.save()
@@ -71,7 +89,7 @@ const searchPet = asyncHandler( async ( req, res ) =>
     try
     {
         const search = req.query.search;
-        const pets = await Pet.find( { name: { $regex: '.*' + search + '.*' } } )
+        const pets = await Pet.find( { name: { $regex: '.*' + search + '.*' } } ).populate( 'user' )
         res.status( 200 ).json( pets )
     } catch ( error )
     {
