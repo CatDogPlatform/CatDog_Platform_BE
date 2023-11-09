@@ -1,37 +1,22 @@
 import asyncHandler from 'express-async-handler';
 import Pet from "../models/Pet.js";
+import User from '../models/User.js';
 
 
 const createPet = asyncHandler( async ( req, res ) =>
 {
     try
     {
-        // Split user and Pet data from request body
-        // if(!req.file) {
-        //     return res.status(400).send("Error: No files found")
-        // } 
-
-        // const blob = firebase.bucket.file(req.file.originalname)
-
-        // const blobWriter = blob.createWriteStream({
-        //     metadata: {
-        //         contentType: req.file.mimetype
-        //     }
-        // })
-
-        // blobWriter.on('error', (err) => {
-        //     console.log(err)
-        // })
-
-        // blobWriter.end(req.file.buffer)
 
         const { userId, name, description, price, petType } = req.body
+        const id = new mongoose.Types.ObjectId( userId );
+        const user = await User.find( { _id: id } )
         const newPet = new Pet( { name, description, price, petType } )
         const savedPet = await newPet.save()
         // Add user to Pet 
         Pet.findByIdAndUpdate(
             savedPet._id,
-            { user: userId },
+            { user: user._id },
             { new: true, useFindAndModify: false }
         );
         res.status( 200 ).json( savedPet )

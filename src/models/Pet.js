@@ -4,7 +4,6 @@ const petSchema = mongoose.Schema( {
 
     name: String,
     description: String,
-    price: Number,
     weight: Number,
     DoB: Date,
     Gender: {
@@ -14,11 +13,10 @@ const petSchema = mongoose.Schema( {
     petType:
     {
         type: String,
-        enum: [ "Dog", "Cat" ]
+        enum: [ "DOG", "CAT" ]
     },
     images: {
-        type: Array,
-        default: []
+        type: String,
     },
     user:
         { type: mongoose.Schema.Types.ObjectId, ref: 'User' },

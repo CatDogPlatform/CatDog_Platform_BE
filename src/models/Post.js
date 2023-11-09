@@ -8,8 +8,7 @@ const postSchema = mongoose.Schema( {
         default: []
     },
     images: {
-        type: Array,
-        default: []
+        type: String,
     },
     user:
         { type: mongoose.Schema.Types.ObjectId, ref: 'User' },

@@ -1,5 +1,6 @@
 import asyncHandler from 'express-async-handler';
 import Good from "../models/Good.js";
+import User from '../models/User.js';
 
 
 const createGood = asyncHandler( async ( req, res ) =>
@@ -8,6 +9,8 @@ const createGood = asyncHandler( async ( req, res ) =>
     {
         // Split user and Good data from request body
         const { userId, content } = req.body
+        const id = new mongoose.Types.ObjectId( userId );
+        const user = await User.find( { _id: id } )
         const newGood = new Good( { content } )
         const savedGood = await newGood.save()
         // Add user to Good 
