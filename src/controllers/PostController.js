@@ -46,6 +46,19 @@ const updatePost = asyncHandler( async ( req, res ) =>
     }
 } )
 
+const getPost = asyncHandler( async ( req, res ) =>
+{
+    try
+    {
+        const post = await Post.findById( req.params.id )
+        res.status( 200 ).json( post )
+    } catch ( error )
+    {
+        res.status( 400 )
+        throw new Error( "Cannot create post" )
+    }
+} )
+
 const searchPost = asyncHandler( async ( req, res ) =>
 {
     try
@@ -162,6 +175,7 @@ const rejectPost = asyncHandler( async ( req, res ) =>
 
 export
 {
+    getPost,
     createPost,
     updatePost,
     searchPost,
