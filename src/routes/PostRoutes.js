@@ -7,6 +7,8 @@ import
     deletePost,
     searchPost,
     likePost,
+    approvePost,
+    rejectPost,
 
 } from '../controllers/PostController.js';
 
@@ -28,6 +30,8 @@ router.get( "/", searchPost )
 router.post( "/", createPost )
 router.put( "/:id", updatePost )
 router.delete( "/:id", deletePost )
+router.put( "/:id/approve", approvePost )
+router.put( "/:id/reject", rejectPost )
 // router.delete( "/:id/like", likePost )
 
 
