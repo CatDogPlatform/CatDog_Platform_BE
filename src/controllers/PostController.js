@@ -50,8 +50,23 @@ const getPost = asyncHandler( async ( req, res ) =>
 {
     try
     {
-        const post = await Post.findById( req.params.id )
+        const post = await Post.findById( req.params.id ).populate( 'user' );
         res.status( 200 ).json( post )
+    } catch ( error )
+    {
+        res.status( 400 )
+        throw new Error( "Cannot create post" )
+    }
+} )
+
+const getRejectedPosts = asyncHandler( async ( req, res ) =>
+{
+    try
+    {
+        const posts = await Post.find( {
+            status: "REJECTED"
+        } ).populate( 'user' );
+        res.status( 200 ).json( posts )
     } catch ( error )
     {
         res.status( 400 )
@@ -184,5 +199,6 @@ export
     commentPost,
     getPostComments,
     approvePost,
-    rejectPost
+    rejectPost,
+    getRejectedPosts
 } 

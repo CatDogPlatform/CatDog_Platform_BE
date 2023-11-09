@@ -10,20 +10,11 @@ import
     approvePost,
     rejectPost,
     getPost,
+    getRejectedPosts,
 
 } from '../controllers/PostController.js';
 
-const storage = multer.diskStorage( {
-    destination: ( req, file, cb ) =>
-    {
-        cb( null, 'images/' ); // Create a directory named 'uploads' to store the uploaded images
-    },
-    filename: ( req, file, cb ) =>
-    {
-        cb( null, file.originalname );
-    },
-} );
-const upload = multer( { storage: storage } );
+
 
 const router = express.Router()
 router.get( "/:id", getPost )
@@ -33,6 +24,7 @@ router.put( "/:id", updatePost )
 router.delete( "/:id", deletePost )
 router.put( "/:id/approve", approvePost )
 router.put( "/:id/reject", rejectPost )
+router.get( "/rejectedposts", getRejectedPosts )
 // router.delete( "/:id/like", likePost )
 
 
