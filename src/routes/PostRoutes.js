@@ -9,6 +9,7 @@ import
     likePost,
     approvePost,
     rejectPost,
+    getPost,
 
 } from '../controllers/PostController.js';
 
@@ -25,7 +26,7 @@ const storage = multer.diskStorage( {
 const upload = multer( { storage: storage } );
 
 const router = express.Router()
-
+router.get( "/:id", getPost )
 router.get( "/", searchPost )
 router.post( "/", createPost )
 router.put( "/:id", updatePost )
