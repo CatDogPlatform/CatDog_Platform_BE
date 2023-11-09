@@ -95,9 +95,11 @@ const deletePost = asyncHandler( async ( req, res ) =>
 {
     try
     {
-        const post = await Post.findById( req.params.id )
-        await post.deleteOne()
-        res.status( 200 )
+        const id = req.params.id.toString().trim()
+        await Post.findByIdAndDelete( id )
+
+        // await pet.deleteOne()
+        res.status( 200 ).json( "Delete successfully" )
     } catch ( error )
     {
         res.status( 400 )

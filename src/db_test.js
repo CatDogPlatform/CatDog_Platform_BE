@@ -136,7 +136,7 @@ export const run = async function ()
 
 
     var user = await createUser( {
-        email: "daisdfve321@gmail.com",
+        email: "dassddfve321@gmail.com",
         password: "123",
         fullname: "David",
         role: "MEMBER"
