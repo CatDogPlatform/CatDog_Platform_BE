@@ -21,27 +21,27 @@ connectDB()
 swagger()
 
 
-// run()
-//initialize the app
-admin.initializeApp( {
-    credential: admin.credential.cert( "petdom-563bd-firebase-adminsdk-9kse4-b09a58d9bb.json" ),
-    storageBucket: 'gs://petdom-563bd.appspot.com' //you can find in storage.
-} );
+// // run()
+// //initialize the app
+// admin.initializeApp( {
+//     credential: admin.credential.cert( "petdom-563bd-firebase-adminsdk-9kse4-b09a58d9bb.json" ),
+//     storageBucket: 'gs://petdom-563bd.appspot.com' //you can find in storage.
+// } );
 
-const storage = multer.diskStorage( {
-    destination: ( req, file, cb ) =>
-    {
-        cb( null, 'images/' ); // Create a directory named 'uploads' to store the uploaded images
-    },
-    filename: ( req, file, cb ) =>
-    {
-        cb( null, file.originalname );
-    },
-} );
-const upload = multer( { storage: storage } );
+// const storage = multer.diskStorage( {
+//     destination: ( req, file, cb ) =>
+//     {
+//         cb( null, 'images/' ); // Create a directory named 'uploads' to store the uploaded images
+//     },
+//     filename: ( req, file, cb ) =>
+//     {
+//         cb( null, file.originalname );
+//     },
+// } );
+// const upload = multer( { storage: storage } );
 
 //get your bucket
-var bucket = admin.storage().bucket();
+// var bucket = admin.storage().bucket();
 
 const app = express();
 

@@ -25,7 +25,7 @@ const upload = multer( { storage: storage } );
 const router = express.Router()
 
 router.get( "/", searchPost )
-router.post( "/", upload.single( 'image' ), createPost )
+router.post( "/", createPost )
 router.put( "/:id", updatePost )
 router.delete( "/:id", deletePost )
 // router.delete( "/:id/like", likePost )

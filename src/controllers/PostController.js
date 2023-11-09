@@ -2,6 +2,7 @@ import asyncHandler from 'express-async-handler';
 import Post from "../models/Post.js";
 import Comment from '../models/PostComment.js';
 import User from '../models/User.js';
+import { mongoose } from 'mongoose';
 // FOR MEMBERS
 const createPost = asyncHandler( async ( req, res ) =>
 {
@@ -10,9 +11,18 @@ const createPost = asyncHandler( async ( req, res ) =>
         // Split user and post data from request body
         const { userId, content, imageUrl } = req.body
 
-        const newPost = new Post( { content } )
-        const savedPost = await newPost.save()
-        await savedPost.updateOne( { $push: { images: imageUrl } } )
+        const id = new mongoose.Types.ObjectId( userId );
+
+        const user = await User.find( { _id: id } )
+
+        const newPost = new Post( { content, imageUrl } )
+        const savedPost = await Post.create( newPost )
+
+        await Post.findByIdAndUpdate(
+            savedPost._id,
+            { user: user._id },
+            { new: true, useFindAndModify: false }
+        );
 
         res.status( 200 ).json( savedPost )
     } catch ( error )
