@@ -6,14 +6,7 @@ import User from "../models/User.js";
 // FOR MEMBERS
 const createPost = asyncHandler(async (req, res) => {
   try {
-    const admin = require("firebase-admin");
-    const serviceAccount = require("./path/to/serviceAccountKey.json");
-
-    // Khởi tạo Firebase Admin SDK
-    admin.initializeApp({
-      credential: admin.credential.cert(serviceAccount),
-      storageBucket: "gs://petdom-563bd.appspot.com", // Thay thế bằng URL của Firebase Storage bucket
-    });
+    
 
     // Split user and post data from request body
     const { userId, content, imageUrl } = req.body;
@@ -46,7 +39,7 @@ const searchPost = asyncHandler(async (req, res) => {
     const posts = await Post.find({
       content: { $regex: ".*" + search + ".*" },
       status: "APPROVED",
-    }).populate("user");
+    }).populate("user");git
     res.status(200).json(posts);
   } catch (error) {
     res.status(400);

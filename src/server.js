@@ -12,11 +12,14 @@ import petRoutes from "./routes/PetRoutes.js"
 import goodRoutes from "./routes/GoodRoutes.js"
 import userRoutes from "./routes/UserRoutes.js"
 import multer from "multer";
+import swagger from "./config/swagger.js";
 
 dotenv.config()
 const PORT = process.env.PORT || 5000;
 
 connectDB()
+swagger()
+    
 // run()
 //initialize the app
 admin.initializeApp( {

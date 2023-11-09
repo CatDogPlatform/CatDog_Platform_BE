@@ -113,6 +113,10 @@ export const run = async function ()
 
     } );
 
+    var petCreate = await createPet({
+        
+    })
+
 
 
     // var post = await createPost( {
