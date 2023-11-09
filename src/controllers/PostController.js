@@ -50,8 +50,23 @@ const getPost = asyncHandler( async ( req, res ) =>
 {
     try
     {
-        const post = await Post.findById( req.params.id )
+        const post = await Post.findById( req.params.id ).populate( 'user' );
         res.status( 200 ).json( post )
+    } catch ( error )
+    {
+        res.status( 400 )
+        throw new Error( "Cannot create post" )
+    }
+} )
+
+const getRejectedPosts = asyncHandler( async ( req, res ) =>
+{
+    try
+    {
+        const posts = await Post.find( {
+            status: "REJECTED"
+        } ).populate( 'user' );
+        res.status( 200 ).json( posts )
     } catch ( error )
     {
         res.status( 400 )
@@ -80,9 +95,11 @@ const deletePost = asyncHandler( async ( req, res ) =>
 {
     try
     {
-        const post = await Post.findById( req.params.id )
-        await post.deleteOne()
-        res.status( 200 )
+        const id = req.params.id.toString().trim()
+        await Post.findByIdAndDelete( id )
+
+        // await pet.deleteOne()
+        res.status( 200 ).json( "Delete successfully" )
     } catch ( error )
     {
         res.status( 400 )
@@ -117,10 +134,26 @@ const commentPost = asyncHandler( async ( req, res ) =>
 {
     try
     {
-        const { detail, postId, userId } = req.body
-        const comment = new Comment( { detail, postId, userId } )
-        const savedComment = await comment.save()
-        res.status( 200 )
+        const post = await Post.findById( req.params.id )
+        const { detail, userId } = req.body
+        const id = new mongoose.Types.ObjectId( userId );
+
+        const user = await User.find( { _id: id } )
+
+        const comment = new Comment( { detail } )
+        const savedComment = await Comment.create( comment )
+
+        // await Comment.findByIdAndUpdate(
+        //     savedComment._id,
+        //     { post: post._id },
+        //     { new: true, useFindAndModify: false }
+        // );
+        await Comment.findByIdAndUpdate(
+            savedComment._id,
+            { user: user._id },
+            { new: true, useFindAndModify: false }
+        );
+        res.status( 200 ).json( savedComment )
     } catch ( error )
     {
         res.status( 400 )
@@ -133,7 +166,7 @@ const getPostComments = asyncHandler( async ( req, res ) =>
     try
     {
         const { postId } = req.body
-        const comments = await Comment.find( { postId: postId } )
+        const comments = await Comment.find( { postId: postId } ).populate( 'user' )
         res.status( 200 ).json( comments )
     } catch ( error )
     {
@@ -184,5 +217,6 @@ export
     commentPost,
     getPostComments,
     approvePost,
-    rejectPost
+    rejectPost,
+    getRejectedPosts
 } 

@@ -88,9 +88,11 @@ const deleteGood = asyncHandler( async ( req, res ) =>
 {
     try
     {
-        const good = await Good.findById( req.params.id )
-        await good.deleteOne()
-        res.status( 200 )
+        const id = req.params.id.toString().trim()
+        await Good.findByIdAndDelete( id )
+
+        // await pet.deleteOne()
+        res.status( 200 ).json( "Delete successfully" )
     } catch ( error )
     {
         res.status( 400 )
