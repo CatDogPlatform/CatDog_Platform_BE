@@ -101,57 +101,91 @@ const addPostToUser = function ( postId, userId )
 
 export const run = async function ()
 {
-    var pet1 = await createPetOrder( {
-
-    } );
-
-    var pet2 = await createPetOrder( {
-
-    } );
-
-    var good1= await createGoodOrder( {
-
-    } );
 
 
 
-    // var post = await createPost( {
-    //     content: "I like cats. They are cute",
-    //     images: [ "https://thumbor.forbes.com/thumbor/fit-in/900x510/https://www.forbes.com/advisor/wp-content/uploads/2023/07/top-20-small-dog-breeds.jpeg.jpg" ],
-    //     status: "APPROVED"
+    var good = await createGood( {
+        name: "Cat food",
+        images: "https://thumbor.forbes.com/thumbor/fit-in/900x510/https://www.forbes.com/advisor/wp-content/uploads/2023/07/top-20-small-dog-breeds.jpeg.jpg",
 
-    // } )
+    } )
 
-    // var post2 = await createPost( {
-    //     content: "I like dogs. They are my friends",
-    //     images: [ "https://thumbor.forbes.com/thumbor/fit-in/900x510/https://www.forbes.com/advisor/wp-content/uploads/2023/07/top-20-small-dog-breeds.jpeg.jpg" ],
-    //     status: "APPROVED"
+    var good2 = await createGood( {
+        name: "Dog food s",
+        images: "https://www.cesar.ca/sites/g/files/fnmzdf2136/files/migrate-product-files/images/vueagylorr5ctmnung4u.png",
 
-    // } )
+    } )
 
-    // var post3 = await createPost( {
-    //     content: "I like both pets. They are all cute",
-    //     images: [ "https://thumbor.forbes.com/thumbor/fit-in/900x510/https://www.forbes.com/advisor/wp-content/uploads/2023/07/top-20-small-dog-breeds.jpeg.jpg" ],
-    //     status: "PENDING"
+    var good3 = await createGood( {
+        name: "Dog food 8",
+        images: "https://www.cesar.ca/sites/g/files/fnmzdf2136/files/migrate-product-files/images/vueagylorr5ctmnung4u.png",
 
-    // } )
+    } )
 
-    // var user = await createUser( {
-    //     email: "daive321@gmail.com",
-    //     password: "123",
-    //     fullname: "Dave",
-    //     role: "MEMBER"
-    // } )
+    var good4 = await createGood( {
+        name: "Dog food 3",
+        images: "https://www.cesar.ca/sites/g/files/fnmzdf2136/files/migrate-product-files/images/vueagylorr5ctmnung4u.png",
 
-    // var user2 = await createUser( {
-    //     email: "jane123@gmail.com",
-    //     password: "123",
-    //     fullname: "Jane",
-    //     role: "MEMBER"
-    // } )
+    } )
 
-    // post = await addPostToUser( post._id, user._id )
-    // post2 = await addPostToUser( post2._id, user._id )
-    // post3 = await addPostToUser( post3._id, user2._id )
+    var good5 = await createGood( {
+        name: "Dog food 5",
+        images: "https://www.cesar.ca/sites/g/files/fnmzdf2136/files/migrate-product-files/images/vueagylorr5ctmnung4u.png",
+
+    } )
+
+
+    var user = await createUser( {
+        email: "daisdfve321@gmail.com",
+        password: "123",
+        fullname: "David",
+        role: "MEMBER"
+    } )
+
+
+    good = await addGoodToUser( good._id, user._id )
+    good2 = await addGoodToUser( good2._id, user._id )
+    good3 = await addGoodToUser( good3._id, user._id )
+    good4 = await addGoodToUser( good4._id, user._id )
+    good5 = await addGoodToUser( good5._id, user._id )
+
+
+    var pet = await createPet( {
+        name: "Cat6",
+        images: "https://th-thumbnailer.cdn-si-edu.com/SdKYWifCKfE2g8O-po_SO99hQ-Y=/1000x750/filters:no_upscale():focal(3126x2084:3127x2085)/https://tf-cmsv2-smithsonianmag-media.s3.amazonaws.com/filer_public/ec/e6/ece69181-708a-496e-b2b7-eaf7078b99e0/gettyimages-1310156391.jpg",
+
+    } )
+
+    var pet2 = await createPet( {
+        name: "Dog  s",
+        images: "https://th-thumbnailer.cdn-si-edu.com/SdKYWifCKfE2g8O-po_SO99hQ-Y=/1000x750/filters:no_upscale():focal(3126x2084:3127x2085)/https://tf-cmsv2-smithsonianmag-media.s3.amazonaws.com/filer_public/ec/e6/ece69181-708a-496e-b2b7-eaf7078b99e0/gettyimages-1310156391.jpg",
+
+    } )
+
+    var pet3 = await createPet( {
+        name: "Dog  8",
+        images: "https://th-thumbnailer.cdn-si-edu.com/SdKYWifCKfE2g8O-po_SO99hQ-Y=/1000x750/filters:no_upscale():focal(3126x2084:3127x2085)/https://tf-cmsv2-smithsonianmag-media.s3.amazonaws.com/filer_public/ec/e6/ece69181-708a-496e-b2b7-eaf7078b99e0/gettyimages-1310156391.jpg",
+
+    } )
+
+    var pet4 = await createPet( {
+        name: "Dog 3",
+        images: "https://th-thumbnailer.cdn-si-edu.com/SdKYWifCKfE2g8O-po_SO99hQ-Y=/1000x750/filters:no_upscale():focal(3126x2084:3127x2085)/https://tf-cmsv2-smithsonianmag-media.s3.amazonaws.com/filer_public/ec/e6/ece69181-708a-496e-b2b7-eaf7078b99e0/gettyimages-1310156391.jpg",
+
+    } )
+
+    var pet5 = await createPet( {
+        name: "Dog 5",
+        images: "https://th-thumbnailer.cdn-si-edu.com/SdKYWifCKfE2g8O-po_SO99hQ-Y=/1000x750/filters:no_upscale():focal(3126x2084:3127x2085)/https://tf-cmsv2-smithsonianmag-media.s3.amazonaws.com/filer_public/ec/e6/ece69181-708a-496e-b2b7-eaf7078b99e0/gettyimages-1310156391.jpg",
+
+    } )
+
+
+
+    pet = await addPetToUser( pet._id, user._id )
+    pet2 = await addPetToUser( pet2._id, user._id )
+    pet3 = await addPetToUser( pet3._id, user._id )
+    pet4 = await addPetToUser( pet4._id, user._id )
+    pet5 = await addPetToUser( pet5._id, user._id )
 };
 

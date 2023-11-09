@@ -6,8 +6,7 @@ const goodSchema = mongoose.Schema( {
     description: String,
     price: Number,
     images: {
-        type: Array,
-        default: []
+        type: String,
     },
     user:
         { type: mongoose.Schema.Types.ObjectId, ref: 'User' },

@@ -11,6 +11,7 @@ import
     rejectPost,
     getPost,
     getRejectedPosts,
+    commentPost,
 
 } from '../controllers/PostController.js';
 
@@ -20,6 +21,7 @@ const router = express.Router()
 router.get( "/:id", getPost )
 router.get( "/", searchPost )
 router.post( "/", createPost )
+router.post( "/:id/comment", commentPost )
 router.put( "/:id", updatePost )
 router.delete( "/:id", deletePost )
 router.put( "/:id/approve", approvePost )
