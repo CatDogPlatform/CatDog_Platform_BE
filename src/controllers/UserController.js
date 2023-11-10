@@ -1,7 +1,7 @@
 import asyncHandler from 'express-async-handler';
 import User from "../models/User.js";
-import bcrypt from 'bcryptjs'
-import generateToken from '../middleware/authMiddleware.js'
+// import bcrypt from 'bcryptjs'
+// import generateToken from '../middleware/authMiddleware.js'
 import jwt from 'jsonwebtoken'
 const db = {};
 
@@ -25,35 +25,26 @@ const login = asyncHandler( ( req, res ) => new Promise( async ( resolve, reject
     try
     {
         const { email, password } = req.body;
-
         // check email and password
-
-        const users = await User.findOne( { email } );
         const user = await User.findOne( { email } )
-
-        if ( user && ( await user.matchPassword( password ) ) )
+        const checkPassword = await user.matchPassword( password )
+        if ( user && checkPassword )
         {
-            generateToken( res, user._id )
-            res.status( 201 ).json( {
-                _id: user._id,
-                name: user.name,
-                pasword: user.password
-            } )
+            //generateToken( res, user._id )
+            const token = jwt.sign( { email: user.email, password: user.password }, process.env.JWT_SECRET, { expiresIn: '1d' } )
+            res.status( 200 ).send( {
+                err: token ? 1 : 0,
+                message: token ? "Login successfully" : user ? "Invalid password" : "Email does not match",
+                'access_token': token ? `Bearer ${ token }` : token,
+                //token: token, 
+                data: user
+            } );
+        } else
+        {
+            res.status( 401 ).json( "Inccorect email or password" )
         }
 
         // const checkPassword = users && bcrypt.compareSync( password, users.password );
-        // const token = checkPassword ? jwt.sign( { email: users.email, password: users.password }, process.env.JWT_SECRET, { expiresIn: '5d' } ) : "Khong nhận đc token";
-
-        // res.status( 200 ).send( {
-        //     err: token ? 1 : 0,
-        //     message: token ? "Login successfully" : users ? "Invalid password" : "Email does not match",
-        //     'access_token': token ? `Bearer ${ token }` : token,
-        //     //token: token, 
-        //     data: users
-        // } );
-
-
-
     } catch ( error )
     {
         reject( "Cannot login user" + error );
