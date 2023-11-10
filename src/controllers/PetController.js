@@ -10,7 +10,8 @@ const createPet = asyncHandler( async ( req, res ) =>
         const { userId, name, description, price, petType, imageUrl } = req.body
         const images = imageUrl
         const id = new mongoose.Types.ObjectId( userId );
-        const user = await User.find( { _id: id } )
+        const users = await User.find( { _id: id } )
+        const user = users[ 0 ]
         const newPet = new Pet( { name, description, price, petType, images } )
         const savedPet = await newPet.save()
         // Add user to Pet 

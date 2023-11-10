@@ -14,13 +14,12 @@ const createPost = asyncHandler( async ( req, res ) =>
         const id = new mongoose.Types.ObjectId( userId );
 
         const user = await User.find( { _id: id } )
-
         const newPost = new Post( { content, images } )
         const savedPost = await Post.create( newPost )
 
         await Post.findByIdAndUpdate(
             savedPost._id,
-            { user: user._id },
+            { user: user[ 0 ]._id },
             { new: true, useFindAndModify: false }
         );
 
@@ -83,7 +82,7 @@ const getUserPosts = asyncHandler( async ( req, res ) =>
         const id = new mongoose.Types.ObjectId( userId );
         const user = await User.find( { _id: id } )
         const posts = await Post.find( {
-            user: user._id
+            user: user[ 0 ]._id
         } ).populate( 'user' );
         res.status( 200 ).json( posts )
     } catch ( error )
@@ -159,7 +158,8 @@ const commentPost = asyncHandler( async ( req, res ) =>
         const { detail, userId } = req.body
         const id = new mongoose.Types.ObjectId( userId );
 
-        const user = await User.find( { _id: id } )
+        const users = await User.find( { _id: id } )
+        const user = users[ 0 ]
         const email = user.email
         const fullname = user.fullname
         const comment = new Comment( { detail, postid, userId, email, fullname } )
