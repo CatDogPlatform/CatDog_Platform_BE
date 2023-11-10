@@ -20,6 +20,11 @@ const userSchema = mongoose.Schema(
             type: String,
             enum: [ 'MEMBER', 'STAFF', 'ADMIN' ],
             default: "MEMBER"
+        },
+        status: {
+            type: String,
+            enum: [ 'ACTIVE', 'BANNED' ],
+            default: "ACTIVE"
         }
     },
     {
