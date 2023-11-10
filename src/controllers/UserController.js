@@ -86,7 +86,7 @@ const getMembers = asyncHandler( async ( req, res ) =>
 {
     try
     {
-        const members = await User.find( { role: "MEMBER" } )
+        const members = await User.find( { role: "MEMBER", status: "ACTIVE" } )
         res.status( 200 ).json( members )
     } catch ( error )
     {
@@ -94,6 +94,7 @@ const getMembers = asyncHandler( async ( req, res ) =>
         throw new Error( "Cannot get members" )
     }
 } )
+
 
 const getBannedMembers = asyncHandler( async ( req, res ) =>
 {
