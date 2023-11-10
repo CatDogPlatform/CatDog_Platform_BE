@@ -11,13 +11,14 @@ const createGood = asyncHandler( async ( req, res ) =>
         const { userId, name, description, price, imageUrl } = req.body
         const images = imageUrl
         const id = new mongoose.Types.ObjectId( userId );
-        const user = await User.find( { _id: id } )
+        const users = await User.find( { _id: id } )
+        const user = users[ 0 ]
         const newGood = new Good( { name, description, price, images } )
         const savedGood = await newGood.save()
         // Add user to Good 
         Good.findByIdAndUpdate(
             savedGood._id,
-            { user: userId },
+            { user: user._id },
             { new: true, useFindAndModify: false }
         );
         res.status( 200 ).json( savedGood )
