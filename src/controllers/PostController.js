@@ -110,13 +110,11 @@ const searchPost = asyncHandler( async ( req, res ) =>
     }
 } )
 
-const searchPendingPost = asyncHandler( async ( req, res ) =>
+const getPendingPost = asyncHandler( async ( req, res ) =>
 {
     try
     {
-        const search = req.query.search;
         const posts = await Post.find( {
-            content: { $regex: '.*' + search + '.*' },
             status: "PENDING"
         } ).populate( 'user' );
         res.status( 200 ).json( posts )
@@ -249,5 +247,6 @@ export
     getPostComments,
     approvePost,
     rejectPost,
-    getRejectedPosts
+    getRejectedPosts,
+    getPendingPost
 } 
