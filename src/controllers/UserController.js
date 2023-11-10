@@ -41,7 +41,7 @@ const login = asyncHandler( ( req, res ) => new Promise( async ( resolve, reject
             } );
         } else
         {
-            res.status( 401 ).json( "Inccorect email or password" )
+            res.status( 403 ).json( "Inccorect email or password" )
         }
 
         // const checkPassword = users && bcrypt.compareSync( password, users.password );
