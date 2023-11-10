@@ -15,6 +15,9 @@ const petSchema = mongoose.Schema( {
         type: String,
         enum: [ "DOG", "CAT" ]
     },
+    species: {
+        type: String
+    },
     images: {
         type: String,
     },

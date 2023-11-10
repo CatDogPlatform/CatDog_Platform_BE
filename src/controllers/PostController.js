@@ -134,25 +134,17 @@ const commentPost = asyncHandler( async ( req, res ) =>
 {
     try
     {
-        const post = await Post.findById( req.params.id )
+        const postid = req.params.id.toString().trim()
+        const post = await Post.findById( postid )
         const { detail, userId } = req.body
         const id = new mongoose.Types.ObjectId( userId );
 
         const user = await User.find( { _id: id } )
-
-        const comment = new Comment( { detail } )
+        const email = user.email
+        const fullname = user.fullname
+        const comment = new Comment( { detail, postid, userId, email, fullname } )
         const savedComment = await Comment.create( comment )
 
-        // await Comment.findByIdAndUpdate(
-        //     savedComment._id,
-        //     { post: post._id },
-        //     { new: true, useFindAndModify: false }
-        // );
-        await Comment.findByIdAndUpdate(
-            savedComment._id,
-            { user: user._id },
-            { new: true, useFindAndModify: false }
-        );
         res.status( 200 ).json( savedComment )
     } catch ( error )
     {
@@ -165,8 +157,8 @@ const getPostComments = asyncHandler( async ( req, res ) =>
 {
     try
     {
-        const { postId } = req.body
-        const comments = await Comment.find( { postId: postId } ).populate( 'user' )
+        const postId = req.params.id
+        const comments = await Comment.find( { postId: postId } )
         res.status( 200 ).json( comments )
     } catch ( error )
     {
