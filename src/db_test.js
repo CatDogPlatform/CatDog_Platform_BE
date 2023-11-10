@@ -136,22 +136,22 @@ export const run = async function ()
 
 
     var user = await createUser( {
-        email: "linux@gmail.com",
+        email: "linux2@gmail.com",
         password: "123",
         fullname: "David",
         role: "MEMBER"
     } )
 
     var staff = await createUser( {
-        email: "staff@gmail.com",
+        email: "staff5@gmail.com",
         password: "Thangdihoc123@",
         fullname: "David",
         role: "STAFF"
     } )
 
     var admin = await createUser( {
-        email: "admin@gmail.com",
-        password: "Thangdihoc123@",
+        email: "admin2@gmail.com",
+        password: "admin2@123",
         fullname: "David",
         role: "ADMIN"
     } )
