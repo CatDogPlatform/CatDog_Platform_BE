@@ -25,41 +25,34 @@ const login = asyncHandler( ( req, res ) => new Promise( async ( resolve, reject
     try
     {
         const { email, password } = req.body;
-        if ( !email || !password )
-            return res.status( 400 ).json( {
-                err: 1,
-                message: "Invalid email or password"
-            } );
 
         // check email and password
 
-
         const users = await User.findOne( { email } );
+        const user = await User.findOne( { email } )
 
-        const checkPassword = users && bcrypt.compareSync( password, users.password );
-        const token = checkPassword ? jwt.sign( { email: users.email, password: users.password }, process.env.JWT_SECRET, { expiresIn: '5d' } ) : "Khong nhận đc token";
+        if ( user && ( await user.matchPassword( password ) ) )
+        {
+            generateToken( res, user._id )
+            res.status( 201 ).json( {
+                _id: user._id,
+                name: user.name,
+                pasword: user.password
+            } )
+        }
 
-        res.status( 200 ).send( {
-            err: token ? 1 : 0,
-            message: token ? "Login successfully" : users ? "Invalid password" : "Email does not match",
-            'access_token': token ? `Bearer ${ token }` : token,
-            //token: token, 
-            data: users
-        } );
+        // const checkPassword = users && bcrypt.compareSync( password, users.password );
+        // const token = checkPassword ? jwt.sign( { email: users.email, password: users.password }, process.env.JWT_SECRET, { expiresIn: '5d' } ) : "Khong nhận đc token";
 
-        // resolve({
-        //     err: token ? 1 : 0, 
-        //     mes: token ? "Login successfully" : users ? "Invalid password" : "Email does not match",
-        //     'access_token': token ? `Bearer ${token}` : token,
+        // res.status( 200 ).send( {
+        //     err: token ? 1 : 0,
+        //     message: token ? "Login successfully" : users ? "Invalid password" : "Email does not match",
+        //     'access_token': token ? `Bearer ${ token }` : token,
+        //     //token: token, 
         //     data: users
-        //     // message: "Access token",
-        //     // data: users
-        // });
+        // } );
 
-        // resolve({
-        //     err: 0,
-        //     mes: "register services"
-        // })  
+
 
     } catch ( error )
     {
