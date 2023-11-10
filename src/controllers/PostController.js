@@ -74,6 +74,26 @@ const getRejectedPosts = asyncHandler( async ( req, res ) =>
     }
 } )
 
+const getUserPosts = asyncHandler( async ( req, res ) =>
+{
+    try
+    {
+
+        const { userId } = req.params.id
+        const id = new mongoose.Types.ObjectId( userId );
+        const user = await User.find( { _id: id } )
+        const posts = await Post.find( {
+            user: user._id
+        } ).populate( 'user' );
+        res.status( 200 ).json( posts )
+    } catch ( error )
+    {
+        res.status( 400 )
+        throw new Error( "Cannot search post" )
+    }
+} )
+
+
 const searchPost = asyncHandler( async ( req, res ) =>
 {
     try
@@ -201,6 +221,7 @@ const rejectPost = asyncHandler( async ( req, res ) =>
 export
 {
     getPost,
+    getUserPosts,
     createPost,
     updatePost,
     searchPost,
