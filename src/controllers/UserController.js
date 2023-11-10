@@ -164,7 +164,7 @@ const getBannedStaffs = asyncHandler( async ( req, res ) =>
     try
     {
         const staffs = await User.find( { role: "STAFF", status: "BANNED" } )
-        res.status( 200 ).json( members )
+        res.status( 200 ).json( staffs )
     } catch ( error )
     {
         res.status( 400 )

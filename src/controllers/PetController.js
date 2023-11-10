@@ -33,7 +33,8 @@ const sellPet = asyncHandler( async ( req, res ) =>
     try
     {
         // Change pet status from "available" to "for exchange"
-        const pet = await Pet.findById( req.params.id )
+        const petid = req.params.id.toString().trim();
+        const pet = await Pet.findById( petid )
         await pet.update( { status: "FOR EXCHANGE" } )
         res.status( 200 ).json( pet )
     } catch ( error )
@@ -47,7 +48,9 @@ const getPet = asyncHandler( async ( req, res ) =>
 {
     try
     {
-        const pet = await Pet.findById( req.params.id )
+        const petid = req.params.id.toString().trim();
+        const pet = await Pet.findById( petid )
+        console.log( pet )
         res.status( 200 ).json( pet )
     } catch ( error )
     {
