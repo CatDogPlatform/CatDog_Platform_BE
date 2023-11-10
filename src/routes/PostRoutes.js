@@ -12,6 +12,7 @@ import
     getPost,
     getRejectedPosts,
     commentPost,
+    getPendingPost,
 
 } from '../controllers/PostController.js';
 
@@ -27,6 +28,7 @@ router.delete( "/:id", deletePost )
 router.put( "/:id/approve", approvePost )
 router.put( "/:id/reject", rejectPost )
 router.get( "/rejectedposts", getRejectedPosts )
+router.get( "/pendingposts", getPendingPost )
 // router.delete( "/:id/like", likePost )
 
 
