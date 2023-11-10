@@ -25,26 +25,31 @@ const login = asyncHandler( ( req, res ) => new Promise( async ( resolve, reject
     try
     {
         const { email, password } = req.body;
-        // check email and password
-        const user = await User.findOne( { email } )
-        const checkPassword = await user.matchPassword( password )
-        if ( user && checkPassword )
+        const valid = true
+        const users = await User.find( { email: email } )
+        if ( users.length == 1 )
         {
-            //generateToken( res, user._id )
-            const token = jwt.sign( { email: user.email, password: user.password }, process.env.JWT_SECRET, { expiresIn: '1d' } )
-            res.status( 200 ).send( {
-                err: token ? 1 : 0,
-                message: token ? "Login successfully" : user ? "Invalid password" : "Email does not match",
-                'access_token': token ? `Bearer ${ token }` : token,
-                //token: token, 
-                data: user
-            } );
+            const user = users[ 0 ]
+            const checkPassword = await user.matchPassword( password )
+            if ( checkPassword )
+            {
+                const token = jwt.sign( { email: user.email, password: user.password }, process.env.JWT_SECRET, { expiresIn: '1d' } )
+                res.status( 200 ).send( {
+                    err: token ? 1 : 0,
+                    message: token ? "Login successfully" : user ? "Invalid password" : "Email does not match",
+                    'access_token': token ? `Bearer ${ token }` : token,
+                    //token: token, 
+                    data: user
+                } );
+            } else
+            {
+                res.status( 403 ).json( "Incorrect email or password" )
+            }
         } else
         {
-            res.status( 403 ).json( "Inccorect email or password" )
+            res.status( 403 ).json( "Incorrect email or password" )
         }
 
-        // const checkPassword = users && bcrypt.compareSync( password, users.password );
     } catch ( error )
     {
         reject( "Cannot login user" + error );
