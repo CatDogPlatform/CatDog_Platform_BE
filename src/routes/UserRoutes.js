@@ -25,6 +25,6 @@ router.get( "/bannedmembers", getBannedMembers )
 router.put( "/members/:id/ban", banAccount )
 router.put( "/members/:id/unban", unbanAccount )
 router.get( "/staffs", getStaffs )
-router.get( "/staffs", getBannedStaffs )
+router.get( "/staffs/banned", getBannedStaffs )
 
 export default router
