@@ -81,6 +81,23 @@ const getProfile = asyncHandler( async ( req, res ) =>
     }
 } )
 
+const createStaffAccount = asyncHandler( async ( req, res ) =>
+{
+    try
+    {
+        const { email, password } = req.body;
+        const newUser = new User( { email, password } )
+        const savedUser = await newUser.save()
+        res.status( 200 ).json( savedUser )
+        const profile = await User.findById( req.params.id )
+        res.status( 200 ).json( profile )
+    } catch ( error )
+    {
+        res.status( 400 )
+        throw new Error( "Cannot get user profile" )
+    }
+} )
+
 export {
     register,
     login,

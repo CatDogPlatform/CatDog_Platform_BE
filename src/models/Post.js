@@ -16,7 +16,7 @@ const postSchema = mongoose.Schema( {
         type: String,
         enum: [ "PENDING", "APPROVED", "REJECTED" ],
         default: "PENDING"
-    }
+    },
 },
     {
         timestamps: true

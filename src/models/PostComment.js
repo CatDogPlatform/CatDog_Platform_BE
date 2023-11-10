@@ -3,12 +3,19 @@ import { mongoose } from 'mongoose';
 const commentSchema = mongoose.Schema( {
 
     detail: String,
-    post:
+    postId:
     {
-        type: mongoose.Schema.Types.ObjectId, ref: 'Post'
+        type: String
     },
-    user:
-        { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+    userId:
+        { type: String },
+    email: {
+        type: String
+    },
+    fullname:
+    {
+        type: String
+    }
 },
     {
         timestamps: true
