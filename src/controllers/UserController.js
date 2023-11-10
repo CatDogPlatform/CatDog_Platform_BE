@@ -146,8 +146,37 @@ const createStaffAccount = asyncHandler( async ( req, res ) =>
     }
 } )
 
+const getStaffs = asyncHandler( async ( req, res ) =>
+{
+    try
+    {
+        const staffs = await User.find( { role: "STAFF", status: "ACTIVE" } )
+        res.status( 200 ).json( staffs )
+    } catch ( error )
+    {
+        res.status( 400 )
+        throw new Error( "Cannot get user profile" )
+    }
+} )
+
+const getBannedStaffs = asyncHandler( async ( req, res ) =>
+{
+    try
+    {
+        const staffs = await User.find( { role: "STAFF", status: "BANNED" } )
+        res.status( 200 ).json( members )
+    } catch ( error )
+    {
+        res.status( 400 )
+        throw new Error( "Cannot get members" )
+    }
+} )
+
+
 export
 {
+    getStaffs,
+    getBannedStaffs,
     register,
     login,
     getProfile,

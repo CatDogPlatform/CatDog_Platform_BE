@@ -7,7 +7,9 @@ import
     getMembers,
     getBannedMembers,
     banAccount,
-    unbanAccount
+    unbanAccount,
+    getStaffs,
+    getBannedStaffs
 } from "../controllers/UserController.js"
 import { getUserPosts } from '../controllers/PostController.js';
 
@@ -22,5 +24,7 @@ router.get( "/members", getMembers )
 router.get( "/bannedmembers", getBannedMembers )
 router.put( "/members/:id/ban", banAccount )
 router.put( "/members/:id/unban", unbanAccount )
+router.get( "/staffs", getStaffs )
+router.get( "/staffs", getBannedStaffs )
 
 export default router
