@@ -114,9 +114,9 @@ const banAccount = asyncHandler( async ( req, res ) =>
 {
     try
     {
-        const userid = req.params.id;
-        const profile = await User.findById( userid )
-        await profile.update( { status: "BANNED" } )
+        const userid = req.params.id.toString().trim();
+        const profile = await User.findByIdAndUpdate( userid, { status: "BANNED" } )
+        // await profile.update( { status: "BANNED" } )
         res.status( 200 ).json( profile )
     } catch ( error )
     {
