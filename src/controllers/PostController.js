@@ -41,7 +41,7 @@ const updatePost = asyncHandler( async ( req, res ) =>
     } catch ( error )
     {
         res.status( 400 )
-        throw new Error( "Cannot create post" )
+        throw new Error( "Cannot update post" )
     }
 } )
 
@@ -54,7 +54,7 @@ const getPost = asyncHandler( async ( req, res ) =>
     } catch ( error )
     {
         res.status( 400 )
-        throw new Error( "Cannot create post" )
+        throw new Error( "Cannot get post" )
     }
 } )
 
@@ -62,14 +62,16 @@ const getRejectedPosts = asyncHandler( async ( req, res ) =>
 {
     try
     {
+        const search = req.query.search;
         const posts = await Post.find( {
+            content: { $regex: '.*' + search + '.*' },
             status: "REJECTED"
         } ).populate( 'user' );
         res.status( 200 ).json( posts )
     } catch ( error )
     {
         res.status( 400 )
-        throw new Error( "Cannot create post" )
+        throw new Error( "Cannot find rejected post" )
     }
 } )
 
@@ -208,13 +210,14 @@ const approvePost = asyncHandler( async ( req, res ) =>
 {
     try
     {
-        const post = await Post.findById( req.params.id )
-        await post.update( { status: "APPROVED" } )
-        res.status( 200 )
+        const postid = req.params.id.toString().trim()
+        const post = await Post.findById( postid )
+        await post.updateOne( { status: "APPROVED" } )
+        res.status( 200 ).json( post )
     } catch ( error )
     {
         res.status( 400 )
-        throw new Error( "Cannot approve comments" )
+        throw new Error( "Cannot approve post" )
     }
 } )
 
