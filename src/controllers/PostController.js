@@ -110,6 +110,24 @@ const searchPost = asyncHandler( async ( req, res ) =>
     }
 } )
 
+const searchPendingPost = asyncHandler( async ( req, res ) =>
+{
+    try
+    {
+        const search = req.query.search;
+        const posts = await Post.find( {
+            content: { $regex: '.*' + search + '.*' },
+            status: "PENDING"
+        } ).populate( 'user' );
+        res.status( 200 ).json( posts )
+    } catch ( error )
+    {
+        res.status( 400 )
+        throw new Error( "Cannot search post" )
+    }
+} )
+
+
 const deletePost = asyncHandler( async ( req, res ) =>
 {
     try
