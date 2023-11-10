@@ -10,12 +10,12 @@ const createPost = asyncHandler( async ( req, res ) =>
     {
         // Split user and post data from request body
         const { userId, content, imageUrl } = req.body
-
+        const images = imageUrl
         const id = new mongoose.Types.ObjectId( userId );
 
         const user = await User.find( { _id: id } )
 
-        const newPost = new Post( { content, imageUrl } )
+        const newPost = new Post( { content, images } )
         const savedPost = await Post.create( newPost )
 
         await Post.findByIdAndUpdate(
