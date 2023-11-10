@@ -1,17 +1,17 @@
 import asyncHandler from 'express-async-handler';
 import Pet from "../models/Pet.js";
 import User from '../models/User.js';
-
+import { mongoose } from 'mongoose';
 
 const createPet = asyncHandler( async ( req, res ) =>
 {
     try
     {
-
-        const { userId, name, description, price, petType } = req.body
+        const { userId, name, description, price, petType, imageUrl } = req.body
+        const images = imageUrl
         const id = new mongoose.Types.ObjectId( userId );
         const user = await User.find( { _id: id } )
-        const newPet = new Pet( { name, description, price, petType } )
+        const newPet = new Pet( { name, description, price, petType, images } )
         const savedPet = await newPet.save()
         // Add user to Pet 
         Pet.findByIdAndUpdate(
