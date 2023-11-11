@@ -21,7 +21,7 @@ connectDB()
 swagger()
 
 
-// run()
+run()
 
 
 const app = express();

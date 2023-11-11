@@ -76,7 +76,7 @@ const addPetToUser = function ( userId, petId )
 {
     return Pet.findByIdAndUpdate(
         petId,
-        { userId: userId },
+        { user: userId },
         { new: true, useFindAndModify: false }
     );
 };
@@ -85,7 +85,7 @@ const addGoodToUser = function ( userId, goodId )
 {
     return Good.findByIdAndUpdate(
         goodId,
-        { userId: userId },
+        { user: userId },
         { new: true, useFindAndModify: false }
     );
 };
@@ -136,32 +136,32 @@ export const run = async function ()
 
 
     var user = await createUser( {
-        email: "linux2@gmail.com",
-        password: "123",
-        fullname: "David",
+        email: "linux7@gmail.com",
+        password: "windows123@",
+        fullname: "John",
         role: "MEMBER"
     } )
 
-    var staff = await createUser( {
-        email: "staff5@gmail.com",
-        password: "Thangdihoc123@",
-        fullname: "David",
-        role: "STAFF"
-    } )
+    // var staff = await createUser( {
+    //     email: "staff5@gmail.com",
+    //     password: "Thangdihoc123@",
+    //     fullname: "David",
+    //     role: "STAFF"
+    // } )
 
-    var admin = await createUser( {
-        email: "admin2@gmail.com",
-        password: "admin2@123",
-        fullname: "David",
-        role: "ADMIN"
-    } )
+    // var admin = await createUser( {
+    //     email: "admin2@gmail.com",
+    //     password: "admin2@123",
+    //     fullname: "David",
+    //     role: "ADMIN"
+    // } )
 
 
-    good = await addGoodToUser( good._id, user._id )
-    good2 = await addGoodToUser( good2._id, user._id )
-    good3 = await addGoodToUser( good3._id, user._id )
-    good4 = await addGoodToUser( good4._id, user._id )
-    good5 = await addGoodToUser( good5._id, user._id )
+    good = await addGoodToUser( user._id, good._id, )
+    good2 = await addGoodToUser( user._id, good2._id )
+    good3 = await addGoodToUser( user._id, good3._id )
+    good4 = await addGoodToUser( user._id, good4._id )
+    good5 = await addGoodToUser( user._id, good5._id )
 
 
     var pet = await createPet( {
@@ -196,10 +196,10 @@ export const run = async function ()
 
 
 
-    pet = await addPetToUser( pet._id, user._id )
-    pet2 = await addPetToUser( pet2._id, user._id )
-    pet3 = await addPetToUser( pet3._id, user._id )
-    pet4 = await addPetToUser( pet4._id, user._id )
-    pet5 = await addPetToUser( pet5._id, user._id )
+    pet = await addPetToUser( user._id, pet._id )
+    pet2 = await addPetToUser( user._id, pet2._id )
+    pet3 = await addPetToUser( user._id, pet3._id )
+    pet4 = await addPetToUser( user._id, pet4._id )
+    pet5 = await addPetToUser( user._id, pet5._id )
 };
 

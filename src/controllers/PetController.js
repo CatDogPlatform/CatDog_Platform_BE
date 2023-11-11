@@ -7,12 +7,12 @@ const createPet = asyncHandler( async ( req, res ) =>
 {
     try
     {
-        const { userId, name, description, price, petType, imageUrl } = req.body
+        const { userId, name, description, price, weight, petType, imageUrl } = req.body
         const images = imageUrl
         const id = new mongoose.Types.ObjectId( userId );
         const users = await User.find( { _id: id } )
         const user = users[ 0 ]
-        const newPet = new Pet( { name, description, price, petType, images } )
+        const newPet = new Pet( { name, description, price, weight, petType, images } )
         const savedPet = await newPet.save()
         // Add user to Pet 
         Pet.findByIdAndUpdate(
@@ -56,6 +56,25 @@ const getPet = asyncHandler( async ( req, res ) =>
     {
         res.status( 400 )
         throw new Error( "Cannot create Pet" )
+    }
+} )
+
+const getUserPets = asyncHandler( async ( req, res ) =>
+{
+    try
+    {
+
+        const { userId } = req.body
+        const id = new mongoose.Types.ObjectId( userId );
+        const user = await User.find( { _id: id } )
+        const pets = await Pet.find( {
+            user: user[ 0 ]._id
+        } ).populate( 'user' );
+        res.status( 200 ).json( pets )
+    } catch ( error )
+    {
+        res.status( 400 )
+        throw new Error( "Cannot search user pet" )
     }
 } )
 
@@ -121,6 +140,7 @@ const buyPet = asyncHandler( async ( req, res ) =>
 
 export
 {
+    getUserPets,
     createPet,
     sellPet,
     getPet,

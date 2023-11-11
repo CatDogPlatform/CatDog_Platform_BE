@@ -29,6 +29,25 @@ const createGood = asyncHandler( async ( req, res ) =>
     }
 } )
 
+const getUserGoods = asyncHandler( async ( req, res ) =>
+{
+    try
+    {
+
+        const { userId } = req.body
+        const id = new mongoose.Types.ObjectId( userId );
+        const user = await User.find( { _id: id } )
+        const goods = await Good.find( {
+            user: user[ 0 ]._id
+        } ).populate( 'user' );
+        res.status( 200 ).json( goods )
+    } catch ( error )
+    {
+        res.status( 400 )
+        throw new Error( "Cannot search user goods" )
+    }
+} )
+
 const sellGood = asyncHandler( async ( req, res ) =>
 {
     try
@@ -120,6 +139,7 @@ const buyGood = asyncHandler( async ( req, res ) =>
 
 export
 {
+    getUserGoods,
     createGood,
     sellGood,
     updateGood,

@@ -80,7 +80,7 @@ const getUserPosts = asyncHandler( async ( req, res ) =>
     try
     {
 
-        const { userId } = req.params.id
+        const { userId } = req.body
         const id = new mongoose.Types.ObjectId( userId );
         const user = await User.find( { _id: id } )
         const posts = await Post.find( {
