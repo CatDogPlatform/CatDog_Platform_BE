@@ -7,7 +7,8 @@ import
     searchPet,
     deletePet,
     buyPet,
-    getPet
+    getPet,
+    getUserPets
 } from "../controllers/PetController.js"
 
 
@@ -20,6 +21,6 @@ router.put( "/:id", updatePet )
 router.delete( "/:id", deletePet )
 router.put( "/:id/sell", sellPet )
 router.put( "/:id/buy", buyPet )
-
+router.get( "/profile/pets", getUserPets )
 
 export default router
