@@ -80,12 +80,13 @@ const getGood = asyncHandler( async ( req, res ) =>
 {
     try
     {
-        const good = await Good.findById( req.params.id )
+        const id = req.params.id.toString().trim();
+        const good = await Good.findById( id ).populate( 'user' )
         res.status( 200 ).json( good )
     } catch ( error )
     {
         res.status( 400 )
-        throw new Error( "Cannot create Good" )
+        throw new Error( "Cannot get Good" )
     }
 } )
 

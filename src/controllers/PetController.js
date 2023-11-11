@@ -49,7 +49,7 @@ const getPet = asyncHandler( async ( req, res ) =>
     try
     {
         const petid = req.params.id.toString().trim();
-        const pet = await Pet.findById( petid )
+        const pet = await Pet.findById( petid ).populate( 'user' )
         console.log( pet )
         res.status( 200 ).json( pet )
     } catch ( error )
